@@ -1,7 +1,18 @@
 const { PrismaClient } = require('../../generated/prisma')
 
-function DB(){
-    return new PrismaClient()
+let prisma
+
+if (process.env.NODE_ENV === 'production') {
+    prisma = new PrismaClient()
+} else {
+    if (!global.prisma) {
+        global.prisma = new PrismaClient()
+    }
+    prisma = global.prisma
+}
+
+function DB() {
+    return prisma
 }
 
 module.exports = DB
