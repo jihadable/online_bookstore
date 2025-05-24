@@ -7,21 +7,17 @@ const cartRouter = require("./routes/cartRoute")
 const cartItemRouter = require("./routes/cartItemRoute")
 const invoiceRouter = require("./routes/invoiceRoute")
 
-function main(){
-    const app = express()
-    app.use(express.json())
-    const PORT = process.env.PORT
+const app = express()
+app.use(express.json())
+const PORT = process.env.PORT
 
-    const db = DB()
-    app.use(customerRouter(db))
-    app.use(bookRouter(db))
-    app.use(cartRouter(db))
-    app.use(cartItemRouter(db))
-    app.use(invoiceRouter(db))
+const db = DB()
+app.use(customerRouter(db))
+app.use(bookRouter(db))
+app.use(cartRouter(db))
+app.use(cartItemRouter(db))
+app.use(invoiceRouter(db))
 
-    app.listen(PORT, () => {
-        console.log("Server is running on:", `http://localhost:${PORT}`)
-    })
-}
-
-main()
+app.listen(PORT, () => {
+    console.log("Server is running on:", `http://localhost:${PORT}`)
+})
