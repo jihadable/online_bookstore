@@ -6,6 +6,7 @@ const bookRouter = require("./routes/bookRoute")
 const cartRouter = require("./routes/cartRoute")
 const cartItemRouter = require("./routes/cartItemRoute")
 const invoiceRouter = require("./routes/invoiceRoute")
+const errorHandlerMiddleware = require("./middlewares/errorHandlerMiddleware")
 
 const app = express()
 app.use(express.json())
@@ -17,6 +18,7 @@ app.use(bookRouter(db))
 app.use(cartRouter(db))
 app.use(cartItemRouter(db))
 app.use(invoiceRouter(db))
+app.use(errorHandlerMiddleware)
 
 app.listen(PORT, () => {
     console.log("Server is running on:", `http://localhost:${PORT}`)

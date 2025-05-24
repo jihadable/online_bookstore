@@ -5,12 +5,16 @@ class CartHandler {
         this.getCart = this.getCart.bind(this)
     }
 
-    async getCart(_, res){
-        const { customerId } = res.locals
-
-        const cart = await this._service.getCart(customerId)
-
-        return res.status(200).json(cart)
+    async getCart(_, res, next){
+        try {
+            const { customerId } = res.locals
+    
+            const cart = await this._service.getCart(customerId)
+    
+            return res.status(200).json(cart)
+        } catch(error){
+            next(error)
+        }
     }
 }
 

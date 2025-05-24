@@ -1,4 +1,6 @@
 const { hash, compareSync } = require("bcrypt")
+const UnauthorizeError = require("../exception/UnauthorizeError")
+const NotFoundError = require("../exception/NotFoundError")
 
 class CustomerService {
     constructor(db){
@@ -24,9 +26,13 @@ class CustomerService {
         const customer = await this._db.customer.findUnique({
             where: { email }
         })
+
+        if (!customer){
+            throw new NotFoundError("Pengguna tidak ditemukan")
+        }
         
         if (!compareSync(password, customer.password)){
-
+            throw new UnauthorizeError("Password tidak sesuai")
         }
 
         return customer.id

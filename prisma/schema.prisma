@@ -18,7 +18,7 @@ datasource db {
 model Author {
   id        String   @id @default(uuid())
   name      String
-  bio       String
+  bio       String?
   birthdate DateTime
 
   books     Book[]
@@ -34,7 +34,7 @@ model Book {
   genre            String
   author_id        String
   
-  author           Author         @relation(fields: [author_id], references: [id])
+  author           Author         @relation(fields: [author_id], references: [id], onDelete: Cascade)
   products         BooksProduct[]
 
   @@map("books")
@@ -48,8 +48,8 @@ model BooksProduct {
   format        String
   warehouse_id  String
 
-  book          Book           @relation(fields: [book_id], references: [id])
-  warehouse     Warehouse      @relation(fields: [warehouse_id], references: [id])
+  book          Book           @relation(fields: [book_id], references: [id], onDelete: Cascade)
+  warehouse     Warehouse      @relation(fields: [warehouse_id], references: [id], onDelete: Cascade)
   invoice_items InvoiceItem[]
   cart_items    CartItem[]
 
@@ -73,8 +73,8 @@ model InvoiceItem {
   price            Decimal       @db.Decimal(10, 2)
   invoice_id       String
 
-  product          BooksProduct  @relation(fields: [books_product_id], references: [id])
-  invoice          Invoice       @relation(fields: [invoice_id], references: [id])
+  product          BooksProduct  @relation(fields: [books_product_id], references: [id], onDelete: Cascade)
+  invoice          Invoice       @relation(fields: [invoice_id], references: [id], onDelete: Cascade)
 
   @@map("invoice_items")
 }
@@ -87,8 +87,8 @@ model Invoice {
   customer_id  String
   cart_id      String
 
-  customer     Customer      @relation(fields: [customer_id], references: [id])
-  cart         Cart          @relation(fields: [cart_id], references: [id])
+  customer     Customer      @relation(fields: [customer_id], references: [id], onDelete: Cascade)
+  cart         Cart          @relation(fields: [cart_id], references: [id], onDelete: Cascade)
   items        InvoiceItem[]
 
   @@map("invoices")
@@ -101,8 +101,8 @@ model CartItem {
   created_at       DateTime     @default(now())
   cart_id          String
 
-  product          BooksProduct @relation(fields: [books_product_id], references: [id])
-  cart             Cart         @relation(fields: [cart_id], references: [id])
+  product          BooksProduct @relation(fields: [books_product_id], references: [id], onDelete: Cascade)
+  cart             Cart         @relation(fields: [cart_id], references: [id], onDelete: Cascade)
 
   @@map("cart_items")
 }
@@ -112,7 +112,7 @@ model Cart {
   customer_id String      @unique
   created_at  DateTime    @default(now())
 
-  customer    Customer    @relation(fields: [customer_id], references: [id])
+  customer    Customer    @relation(fields: [customer_id], references: [id], onDelete: Cascade)
   items       CartItem[]
   invoices    Invoice[]
 
@@ -124,8 +124,8 @@ model Customer {
   name     String
   email    String   @unique
   password String
-  address  String
-  phone    String
+  address  String?
+  phone    String?
 
   cart     Cart?      
   invoices Invoice[]

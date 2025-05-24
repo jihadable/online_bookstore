@@ -6,17 +6,25 @@ class BookHandler {
         this.getBookById = this.getBookById.bind(this)
     }
 
-    async getBooks(_, res){
-        const books = await this._service.getBooks()
-
-        return res.status(200).json(books)
+    async getBooks(_, res, next){
+        try {
+            const books = await this._service.getBooks()
+    
+            return res.status(200).json(books)
+        } catch(error){
+            next(error)
+        }
     }
 
-    async getBookById(req, res){
-        const { id } = req.params
-        const book = await this._service.getBookById(id)
-
-        return res.status(200).json(book)
+    async getBookById(req, res, next){
+        try {
+            const { id } = req.params
+            const book = await this._service.getBookById(id)
+    
+            return res.status(200).json(book)
+        } catch(error){
+            next(error)
+        }
     }
 }
 

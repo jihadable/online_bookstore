@@ -1,3 +1,5 @@
+const NotFoundError = require("../exception/NotFoundError")
+
 class BookService {
     constructor(db){
         this._db = db
@@ -54,6 +56,10 @@ class BookService {
                 }
             }
         })
+
+        if (!book){
+            throw new NotFoundError("Buku tidak ditemukan")
+        }
 
         return book
     }

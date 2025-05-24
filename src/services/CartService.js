@@ -1,3 +1,5 @@
+const NotFoundError = require("../exception/NotFoundError")
+
 class CartService {
     constructor(db){
         this._db = db
@@ -39,6 +41,10 @@ class CartService {
                 }
             }
         })
+
+        if (!cart){
+            throw new NotFoundError("Keranjang belanja tidak ditemukan")
+        }
 
         return {
             ...cart,
