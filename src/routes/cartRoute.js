@@ -8,7 +8,7 @@ function cartRouter(db){
     const handler = new CartHandler(service)
     const cartRoute = Router()
 
-    cartRoute.get("/cart", authMiddleware, handler.getCart)
+    cartRoute.get("/api/cart", authMiddleware, handler.getCart)
 
     return cartRoute
 }

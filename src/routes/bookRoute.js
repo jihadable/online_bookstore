@@ -7,8 +7,8 @@ function bookRouter(db){
     const handler = new BookHandler(service)
     const bookRoute = Router()
 
-    bookRoute.get("/books", handler.getBooks)
-    bookRoute.get("/books/:id", handler.getBookById)
+    bookRoute.get("/api/books", handler.getBooks)
+    bookRoute.get("/api/books/:id", handler.getBookById)
 
     return bookRoute
 }
