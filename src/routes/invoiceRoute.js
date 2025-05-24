@@ -12,8 +12,8 @@ function invoiceRouter(db){
     const handler = new InvoiceHandler(service, cartService, cartItemService)
     const invoiceRoute = Router()
 
-    invoiceRoute.post("/api/checkout", authMiddleware, handler.postInvoice)
-    invoiceRoute.get("/api/invoices", authMiddleware, handler.getInvoices)
+    invoiceRoute.post("/checkout", authMiddleware, handler.postInvoice)
+    invoiceRoute.get("/invoices", authMiddleware, handler.getInvoices)
 
     return invoiceRoute
 }

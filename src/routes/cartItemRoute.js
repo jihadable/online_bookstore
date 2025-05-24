@@ -10,7 +10,7 @@ function cartItemRouter(db){
     const handler = new CartItemHandler(service, cartService)
     const cartItemRoute = Router()
 
-    cartItemRoute.post("/api/cart/items", authMiddleware, handler.postCartItem)
+    cartItemRoute.post("/cart/items", authMiddleware, handler.postCartItem)
 
     return cartItemRoute
 }

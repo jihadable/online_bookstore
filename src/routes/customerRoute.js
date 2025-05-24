@@ -9,8 +9,8 @@ function customerRouter(db){
     const handler = new CustomerHandler(service, cartService)
     const customerRoute = Router()
 
-    customerRoute.post("/api/auth/register", handler.postCustomer)
-    customerRoute.post("/api/auth/login", handler.verifyCustomer)
+    customerRoute.post("/auth/register", handler.postCustomer)
+    customerRoute.post("/auth/login", handler.verifyCustomer)
 
     return customerRoute
 }
