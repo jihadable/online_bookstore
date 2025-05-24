@@ -1,4 +1,5 @@
 require("dotenv").config()
+const serverless = require("serverless-http")
 const express = require("express")
 const DB = require("../src/database/db")
 const customerRouter = require("../src/routes/customerRoute")
@@ -18,8 +19,5 @@ app.use(cartRouter(db))
 app.use(cartItemRouter(db))
 app.use(invoiceRouter(db))
 
-app.listen(PORT, () => {
-    console.log("Server is running on:", `http://localhost:${PORT}`)
-})
-
 module.exports = app
+module.exports.handler = serverless(app)
